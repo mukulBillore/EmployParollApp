@@ -3,13 +3,23 @@ package com.bridgrlabs.EmployPerollApp.model;
 import java.time.LocalDate;
 
 public class EmployModel {
-	public EmployModel(Integer id, String firstName, String lastName, String profilepic, String department, long salary,
+	private Integer id;
+	private String firstName;
+	private String lastName;
+	private String profilePic;
+	private String department;
+	private long salary;
+	private LocalDate date;
+	private String notes;
+
+	
+	public EmployModel(Integer id, String firstName, String lastName, String profilePic, String department, long salary,
 			LocalDate date, String notes) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.profilepic = profilepic;
+		this.profilePic = profilePic;
 		this.department = department;
 		this.salary = salary;
 		this.date = date;
@@ -19,15 +29,7 @@ public class EmployModel {
 	public EmployModel() {
 	}
 
-	private Integer id;
-	private String firstName;
-	private String lastName;
-	private String profilepic;
-	private String department;
-	private long salary;
-	private LocalDate date;
-	private String notes;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,14 +52,6 @@ public class EmployModel {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getProfilepic() {
-		return profilepic;
-	}
-
-	public void setProfilepic(String profilepic) {
-		this.profilepic = profilepic;
 	}
 
 	public String getDepartment() {
@@ -86,6 +80,14 @@ public class EmployModel {
 
 	public String getNotes() {
 		return notes;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 
 	public void setNotes(String notes) {
