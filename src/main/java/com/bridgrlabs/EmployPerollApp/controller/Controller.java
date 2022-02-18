@@ -38,7 +38,7 @@ public class Controller {
 		return new ResponseEntity<String>("sucussfully saved user", HttpStatus.OK);
 	}
 	
-	// getting the employ data
+	//getting the employ data
 	@GetMapping("/getuser/{id}")
 	public ResponseEntity<EmployModel> retriveUserdata(@PathVariable Integer id ) {
 		EmployModel emp = service.getEmploy(id);
