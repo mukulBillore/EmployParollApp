@@ -1,22 +1,31 @@
 package com.bridgrlabs.EmployPerollApp.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgrlabs.EmployPerollApp.model.EmployModel;
+import com.bridgrlabs.EmployPerollApp.repository.EmployParollRepo;
 
 @Service
 public class EmployService {
-	public String  getUserName() {
+	@Autowired
+	EmployParollRepo repo;
+
+	// get employee name
+	public String getUserName() {
 		EmployModel emp = new EmployModel();
 		emp.setFirstName("mukul");
 		emp.setLastName("billore");
-		String name = emp.getFirstName()+" "+emp.getLastName();
+		String name = emp.getFirstName() + " " + emp.getLastName();
 		return name;
 	}
-	
-	public EmployModel saveEmploy(EmployModel emp) {
+
+	// save employee
+	public void saveEmploy(EmployModel emp) {
 		EmployModel employ = new EmployModel();
 		employ.setDate(emp.getDate());
 		employ.setDepartment(emp.getDepartment());
@@ -25,20 +34,33 @@ public class EmployService {
 		employ.setNotes(emp.getNotes());
 		employ.setSalary(emp.getSalary());
 		employ.setProfilePic(emp.getProfilePic());
-		return employ;
-		
+		repo.save(employ);
 	}
-	public EmployModel getEmploy(int id) {
-		EmployModel employ = new EmployModel();
-		employ.setDate( LocalDate.parse("2018-11-01"));
-		employ.setDepartment("developer");
-		employ.setFirstName("mukul");
-		employ.setLastName("Billore");
-		employ.setNotes("this is the node field");
-		employ.setSalary(400000);
-		employ.setProfilePic("xyzap.jpeg");
-		employ.setId(id);
+
+	// find specific employee by id
+	public Optional<EmployModel> getEmploy(Integer id) {
+		Optional<EmployModel> employ = repo.findById(id);
 		return employ;
+	}
+
+	// get list of all the employ
+	public List<EmployModel> getAllData() {
+		List<EmployModel> list = repo.findAll();
+		return list;
+
+	}
+
+	// update specific by id
+	public EmployModel updateEmploy(Integer id, EmployModel employ) {
+		repo.deleteById(id);
+		EmployModel emp = repo.save(employ);
+		return emp;
+	}
+
+	// delete employee by id
+	public String deleteEmployById(Integer id) {
+		repo.deleteById(id);
+		return "sucussed in deleting the employ";
 	}
 
 }
