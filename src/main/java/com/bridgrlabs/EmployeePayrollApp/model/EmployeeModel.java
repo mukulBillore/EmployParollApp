@@ -1,4 +1,4 @@
-package com.bridgrlabs.EmployPerollApp.model;
+package com.bridgrlabs.EmployeePayrollApp.model;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class EmployModel {
+public class EmployeeModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -21,7 +21,7 @@ public class EmployModel {
 	private String notes;
 
 	
-	public EmployModel(Integer id, String firstName, String lastName, String profilePic, String department, long salary,
+	public EmployeeModel(Integer id, String firstName, String lastName, String profilePic, String department, long salary,
 			LocalDate date, String notes) {
 		super();
 		this.id = id;
@@ -34,10 +34,20 @@ public class EmployModel {
 		this.notes = notes;
 	}
 
-	public EmployModel() {
+	public EmployeeModel() {
 	}
 
 	
+	public EmployeeModel(EmployeeModel emp) {
+		this.id = emp.id;
+		this.firstName = emp.firstName;
+		this.lastName = emp.lastName;
+		this.profilePic = emp.profilePic;
+		this.department = emp.department;
+		this.salary = emp.salary;
+		this.date = emp.date;
+		this.notes = emp.notes;
+	}
 	public Integer getId() {
 		return id;
 	}

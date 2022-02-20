@@ -1,13 +1,13 @@
-package com.bridgrlabs.EmployPerollApp;
+package com.bridgrlabs.EmployeePayrollApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployPerollAppApplication {
+public class EmployeePayrollAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployPerollAppApplication.class, args);
+		SpringApplication.run(EmployeePayrollAppApplication.class, args);
 	}
 
 }
