@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgrlabs.EmployeePayrollApp.dto.EmployeeDTO;
 import com.bridgrlabs.EmployeePayrollApp.model.EmployeeModel;
 import com.bridgrlabs.EmployeePayrollApp.repository.EmployeePayrollRepo;
 
@@ -43,9 +44,9 @@ public class EmployeeService {
 	}
 
 	// update specific by id
-	public EmployeeModel updateEmploy(Integer id, EmployeeModel employ) {
-		repo.deleteById(id);
-		EmployeeModel emp = repo.save(employ);
+	public EmployeeModel updateEmploy(Integer id, EmployeeModel employee) {
+		EmployeeModel emp= new EmployeeModel(id ,employee);
+		repo.save(emp);
 		return emp;
 	}
 
@@ -53,6 +54,17 @@ public class EmployeeService {
 	public String deleteEmployById(Integer id) {
 		repo.deleteById(id);
 		return "sucussed in deleting the employ";
+	}
+	//saving the data through DTO
+	public EmployeeModel saveEmployDTO(EmployeeDTO employeeDTO) {
+		EmployeeModel emp = new EmployeeModel(employeeDTO);
+		repo.save(emp);
+		return emp;
+	}
+
+	public EmployeeModel updateUserThroughDTOByID(Integer id, EmployeeDTO employee) {
+		EmployeeModel newEmp =  new EmployeeModel(id , employee);
+		return newEmp;
 	}
 
 }

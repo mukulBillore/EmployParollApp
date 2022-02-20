@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgrlabs.EmployeePayrollApp.dto.EmployeeDTO;
+import com.bridgrlabs.EmployeePayrollApp.dto.ResponceDTO;
 import com.bridgrlabs.EmployeePayrollApp.model.EmployeeModel;
 import com.bridgrlabs.EmployeePayrollApp.service.EmployeeService;
 
@@ -43,8 +45,17 @@ public class EmployeeController {
 	public ResponseEntity<String> saveUserdata(@RequestBody EmployeeModel employ) {
 		service.saveEmploy(employ);
 		return new ResponseEntity<String>("sucussfully saved user", HttpStatus.OK);
+	// saving the employ data using DTO
+	}
+	@PostMapping("/saveuser")
+	public ResponseEntity<String> saveUserdatabyDTO(@RequestBody EmployeeDTO employee) {
+	EmployeeModel newEmployee = service.saveEmployDTO(employee);
+	ResponceDTO dto = new ResponceDTO("sucussfully saved emp", newEmployee);
+		return new ResponseEntity(dto, HttpStatus.OK);
 	}
 
+	
+	
 	// getting the employ data by id
 	@GetMapping("/getuser/{id}")
 	public ResponseEntity<EmployeeModel> retriveUserdataById(@PathVariable Integer id) {
@@ -55,9 +66,16 @@ public class EmployeeController {
 	// update the employ by id
 	@PutMapping("/updateEmp/{id}")
 	public ResponseEntity<EmployeeModel> updateUserdataById(@RequestBody EmployeeModel employ, @PathVariable Integer id) {
-		return new ResponseEntity<EmployeeModel>(service.updateEmploy(id, employ), HttpStatus.OK);
+		return new	 ResponseEntity<EmployeeModel>(service.updateEmploy(id, employ), HttpStatus.OK);
 	}
 
+	// update the employ by id through dto layer
+		@PutMapping("/empUpdate/{id}")
+		public ResponseEntity<ResponceDTO> updateUserdataByIdUsingDTO(@RequestBody EmployeeDTO employeeDTO, @PathVariable Integer id) {
+			EmployeeModel newEmp = service.updateUserThroughDTOByID(id ,employeeDTO);
+			ResponceDTO responcedto = new ResponceDTO("updated sucussFully", newEmp); 
+			return new ResponseEntity<ResponceDTO>(responcedto, HttpStatus.OK);
+		}
 	// ability to get all employee data which is saved in Db
 	@GetMapping("/getAll")
 	public ResponseEntity<List<EmployeeModel>> getAllDataFromRepo() {
@@ -68,6 +86,6 @@ public class EmployeeController {
 	@DeleteMapping("/deleteEmp/{id}")
 	public ResponseEntity<String> updateUserdataById(@PathVariable Integer id) {
 		service.deleteEmployById(id);
-		return new ResponseEntity<String>("sucussesfully deleted the employ", HttpStatus.OK);
+		return new ResponseEntity<String>("sucussesfully deleted the employee", HttpStatus.OK);
 	}
 }
