@@ -32,7 +32,7 @@ public class EmployeeService {
 
 	// find specific employee by id
 	public EmployeeModel getEmploy(Integer id) {
-		EmployeeModel employ = repo.getById(id);
+		EmployeeModel employ = repo.findById(id).get();
 		return employ;
 	}
 
@@ -57,8 +57,8 @@ public class EmployeeService {
 	}
 	//saving the data through DTO
 	public EmployeeModel saveEmployDTO(EmployeeDTO employeeDTO) {
-		EmployeeModel emp = new EmployeeModel(employeeDTO);
-		repo.save(emp);
+			EmployeeModel emp = new EmployeeModel(employeeDTO);
+			repo.save(emp);
 		return emp;
 	}
 

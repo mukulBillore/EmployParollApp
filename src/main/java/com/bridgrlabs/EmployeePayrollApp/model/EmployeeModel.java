@@ -9,7 +9,14 @@ import javax.persistence.Id;
 
 import com.bridgrlabs.EmployeePayrollApp.dto.EmployeeDTO;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Data
+@Getter
+@Setter
 public class EmployeeModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +51,7 @@ public class EmployeeModel {
 		this.id = emp.getId();
 		this.firstName = emp.getFirstName();
 		this.lastName = emp.getLastName();
-		this.profilePic = emp.profilePic;
+		this.profilePic = emp.getProfilePic();
 		this.department = emp.getDepartment();
 		this.salary = emp.getSalary();
 		this.date = emp.getDate();

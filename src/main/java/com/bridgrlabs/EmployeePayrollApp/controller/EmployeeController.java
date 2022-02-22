@@ -21,9 +21,11 @@ import com.bridgrlabs.EmployeePayrollApp.dto.ResponceDTO;
 import com.bridgrlabs.EmployeePayrollApp.model.EmployeeModel;
 import com.bridgrlabs.EmployeePayrollApp.service.EmployeeService;
 
+import lombok.Data;
+
 @RestController
 @RequestMapping("/employParollApp")
-public class EmployeeController {
+public @Data class EmployeeController {
 	@Autowired
 	EmployeeService service;
 

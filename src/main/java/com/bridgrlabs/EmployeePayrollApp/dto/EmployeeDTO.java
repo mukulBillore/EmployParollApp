@@ -2,12 +2,24 @@ package com.bridgrlabs.EmployeePayrollApp.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.validation.annotation.Validated;
+
+@Validated
 public class EmployeeDTO {
+	@Pattern(regexp="^{[A-Z][a-z}*3",message="employ first name pattern is invalid")
+	@NotEmpty(message ="the first name cant be null")
 	private String firstName;
 	private String lastName;
 	private String profilePic;
 	private String department;
+	
+	@Min(value=5000,message="the minimum wage should be grate then 5000")
 	private long salary;
+	
 	private LocalDate date;
 	private String notes;
 
