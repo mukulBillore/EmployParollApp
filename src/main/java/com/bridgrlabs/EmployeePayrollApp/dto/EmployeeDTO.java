@@ -10,16 +10,20 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 public class EmployeeDTO {
-	@Pattern(regexp="^{[A-Z][a-z}*3",message="employ first name pattern is invalid")
-	@NotEmpty(message ="the first name cant be null")
+	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{4,}$", message = "Employee firstName is Invalid")
+	@NotEmpty(message = "the first name cant be null")
 	private String firstName;
+
+	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{4,}$", message = "Employee lastName is Invalid")
+	@NotEmpty(message = "the last name cant be null")
 	private String lastName;
+
 	private String profilePic;
 	private String department;
-	
-	@Min(value=5000,message="the minimum wage should be grate then 5000")
+
+	@Min(value = 5000, message = "the minimum wage should be grate then 5000")
 	private long salary;
-	
+
 	private LocalDate date;
 	private String notes;
 
