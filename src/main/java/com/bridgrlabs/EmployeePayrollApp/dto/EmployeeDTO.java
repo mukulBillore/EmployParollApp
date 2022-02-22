@@ -27,7 +27,7 @@ public class EmployeeDTO {
 	@Min(value = 5000, message = "the minimum wage should be grate then 5000")
 	private long salary;
 	
-	@NotEmpty(message = "the date  cant be empty")
+	//@NotEmpty(message = "the date  cant be empty")
 	private LocalDate date;
 	private String notes;
 

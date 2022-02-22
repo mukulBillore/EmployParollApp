@@ -3,6 +3,8 @@ package com.bridgrlabs.EmployeePayrollApp.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public @Data class EmployeeController {
 	// saving the employ data using DTO
 	}
 	@PostMapping("/saveuser")
-	public ResponseEntity<String> saveUserdatabyDTO(@RequestBody EmployeeDTO employee) {
+	public ResponseEntity<String> saveUserdatabyDTO(@Valid @RequestBody  EmployeeDTO employee) {
 	EmployeeModel newEmployee = service.saveEmployDTO(employee);
 	ResponceDTO dto = new ResponceDTO("sucussfully saved emp", newEmployee);
 		return new ResponseEntity(dto, HttpStatus.OK);

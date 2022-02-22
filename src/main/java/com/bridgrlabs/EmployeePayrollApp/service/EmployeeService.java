@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgrlabs.EmployeePayrollApp.dto.EmployeeDTO;
+import com.bridgrlabs.EmployeePayrollApp.exception.EmployeePayrollException;
 import com.bridgrlabs.EmployeePayrollApp.model.EmployeeModel;
 import com.bridgrlabs.EmployeePayrollApp.repository.EmployeePayrollRepo;
 
@@ -20,7 +21,7 @@ public class EmployeeService {
 	public String getUserName(String fname) {
 		EmployeeModel emp = new EmployeeModel();
 		emp.setFirstName(fname);
-		return  emp.getFirstName();
+		return emp.getFirstName();
 	}
 
 	// save employee
@@ -30,10 +31,20 @@ public class EmployeeService {
 		repo.save(employ);
 	}
 
+	// saving the data through DTO
+	public EmployeeModel saveEmployDTO(EmployeeDTO employeeDTO) {
+		EmployeeModel emp = new EmployeeModel(employeeDTO);
+		repo.save(emp);
+		return emp;
+	}
+
 	// find specific employee by id
 	public EmployeeModel getEmploy(Integer id) {
-		EmployeeModel employ = repo.findById(id).get();
-		return employ;
+		Optional<EmployeeModel> employee = repo.findById(id);
+		if (employee.isEmpty()) {
+			throw new EmployeePayrollException("id not found");
+		}
+		return employee.get();
 	}
 
 	// get list of all the employ
@@ -45,25 +56,33 @@ public class EmployeeService {
 
 	// update specific by id
 	public EmployeeModel updateEmploy(Integer id, EmployeeModel employee) {
-		EmployeeModel emp= new EmployeeModel(id ,employee);
-		repo.save(emp);
+		Optional<EmployeeModel> employee1 = repo.findById(id);
+		EmployeeModel emp;
+
+		if (employee1.isEmpty()) {
+			throw new EmployeePayrollException("employee with id not found so cant update");
+		} else {
+			emp = new EmployeeModel(id, employee);
+
+			repo.save(emp);
+		}
 		return emp;
 	}
 
 	// delete employee by id
 	public String deleteEmployById(Integer id) {
+		Optional<EmployeeModel> employee = repo.findById(id);
+		if (employee.isEmpty()) {
+			throw new EmployeePayrollException("employee not persent to delete");
+		}
+
 		repo.deleteById(id);
 		return "sucussed in deleting the employ";
 	}
-	//saving the data through DTO
-	public EmployeeModel saveEmployDTO(EmployeeDTO employeeDTO) {
-			EmployeeModel emp = new EmployeeModel(employeeDTO);
-			repo.save(emp);
-		return emp;
-	}
 
+	// update through dto
 	public EmployeeModel updateUserThroughDTOByID(Integer id, EmployeeDTO employee) {
-		EmployeeModel newEmp =  new EmployeeModel(id , employee);
+		EmployeeModel newEmp = new EmployeeModel(id, employee);
 		return newEmp;
 	}
 
