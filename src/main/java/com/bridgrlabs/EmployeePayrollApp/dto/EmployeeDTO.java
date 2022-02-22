@@ -17,13 +17,17 @@ public class EmployeeDTO {
 	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{4,}$", message = "Employee lastName is Invalid")
 	@NotEmpty(message = "the last name cant be null")
 	private String lastName;
-
+	
+	@NotEmpty(message = "the profile pic cant be empty")
 	private String profilePic;
+	
+	@NotEmpty(message = "the department cant be empty")
 	private String department;
 
 	@Min(value = 5000, message = "the minimum wage should be grate then 5000")
 	private long salary;
-
+	
+	
 	private LocalDate date;
 	private String notes;
 
